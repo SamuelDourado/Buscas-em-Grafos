@@ -50,7 +50,37 @@ public class Grafo {
 		return caminho;
 		 
 	 }
-
+	 
+	 /**
+	  * Busca em Largura 
+	  * @return ArrayList<String> com o nome dos vetores visitados
+	  */
+	 public ArrayList<String> BFS(String nomeVerticeOrigem, String verticeAlvo){
+		 Vertice origem = this.getVerticeByNome(nomeVerticeOrigem);
+		 if(origem == null)
+			return null;
+		
+		ArrayList<Vertice> origens = new ArrayList<Vertice>();
+		origens.add(origem);
+		return this.BFS(origens, verticeAlvo);
+	 }
+	 
+	 public ArrayList<String> BFS(ArrayList<Vertice> origens, String verticeAlvo){
+		 ArrayList<String> caminho = new ArrayList<String>();
+		 ArrayList<Vertice> novoNivel = new ArrayList<Vertice>();
+		 
+		 for(Vertice origem : origens) {
+			 caminho.add(origem.getNome());
+			 origem.visitado = true;
+			 if(origem.getNome().equals(verticeAlvo))
+				 return caminho;
+			 else
+				 novoNivel.addAll(origem.getVerticesAdjacentes());
+				 
+		 }
+		 caminho.addAll( this.BFS(novoNivel, verticeAlvo) );
+		 return caminho;
+	 }
 	 
 	 public void pringListaDeAdjacencia() {
 		 for(Vertice vertice : this.vertices ) {

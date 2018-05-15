@@ -50,6 +50,14 @@ public class Vertice {
 		 return null;
 	 }
 	 
+	 public ArrayList<Vertice> getVerticesAdjacentes(){
+		 ArrayList<Vertice> vertices = new ArrayList<Vertice>();
+		 for(Aresta aresta : this.arestas) {
+			 vertices.add(aresta.destino);
+		 }
+		 return vertices;
+	 }
+	 
 	 public void printAdjacencia() {
 		 System.out.print(this.nome + " : ");
 		 if(this.arestas == null)

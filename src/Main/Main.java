@@ -18,6 +18,10 @@ public class Main {
 		System.out.println(' ');
 		System.out.println("DFS:");
 		System.out.println(String.join("," ,grafo.DFS("1", "100")));
+		
+		System.out.println(' ');
+		System.out.println("BFS:");
+		System.out.println(String.join("," ,grafo.BFS("1", "100")));
 	}
 
 }
