@@ -24,6 +24,14 @@ public class Vertice {
 	 }
 	 
 	 /**
+	  * Remover Aresta 
+	  * @param destino
+	  */
+	 public void removerAresta(Aresta aresta) {
+		 this.arestas.remove(aresta);
+	 }
+	 
+	 /**
 	  * Retorna peso da aresta para um determinado vertice
 	  * caso não exista uma aresta que conecte os vertices retorna -1
 	  * @param Destino
@@ -49,6 +57,15 @@ public class Vertice {
 		 }
 		 return null;
 	 }
+	 
+	 /**
+	  * Retorna ArrayList de Aresta 
+	  * @return ArrayList<Aresta>
+	  */
+	 public ArrayList<Aresta> getAresta() {
+		 return this.arestas;
+	 }
+	 
 	 
 	 public ArrayList<Vertice> getVerticesAdjacentes(){
 		 ArrayList<Vertice> vertices = new ArrayList<Vertice>();
