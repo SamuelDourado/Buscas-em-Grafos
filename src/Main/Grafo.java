@@ -130,7 +130,7 @@ public class Grafo {
 	  * @param novo Dado
 	  * @return Boolean 
 	  */
-	 public Boolean isCycle(ArrayList<Dado> caminho, Dado novo) {
+	 private Boolean isCycle(ArrayList<Dado> caminho, Dado novo) {
 		 Boolean destinoAdd = false;
 		 Boolean origemAdd = false;
 		 int i = 0;
