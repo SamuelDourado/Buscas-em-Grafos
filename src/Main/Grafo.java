@@ -124,6 +124,50 @@ public class Grafo {
 		return arestaMinima;
 	 }
 	 
+	 public ArrayList<Dado> Dijkstra(ArrayList<Dado> tabela){
+		 Dado minimo = null;
+		 for(Dado dado : tabela) {
+			if(minimo == null || minimo.peso > dado.peso)
+				minimo = dado;
+		 }
+         tabela.remove(minimo);
+		 Vertice origem = this.getVerticeByNome(minimo.destino);
+		 for(Aresta aresta : origem.getAresta()) {
+			 if(!aresta.destino.visitado) {
+				 Dado destino = this.findDadoByDestino(aresta.destino.getNome(), tabela);
+				 if(destino == null) {
+					 tabela.add(new Dado(origem.getNome(),aresta.destino.getNome(),aresta.peso));
+				 }
+				 else if(destino.peso > aresta.peso) {
+					 tabela.remove(destino);
+					 tabela.add(new Dado(origem.getNome(),aresta.destino.getNome(),aresta.peso));
+				 }
+			 }
+		 }
+		 if(tabela.isEmpty()) {
+			ArrayList<Dado> novo = new ArrayList(); 
+			novo.add(minimo);
+			return novo;
+		 }
+		 ArrayList res = this.Dijkstra(tabela);
+		 res.add(minimo);
+		 return res;
+	 }
+	 
+	 /**
+	  * Procurar destino atraves da String de Destino
+	  * @param String destino
+	  * @param ArrayList<Dado> dados
+	  * @return Dado
+	  */
+	 private Dado findDadoByDestino(String destino, ArrayList<Dado> dados) {
+		 for(Dado dado : dados) {
+			 if(dado.destino.equals(destino))
+				 return dado;
+		 }
+		 return null;
+	 }
+	 
 	 /**
 	  * Verifica se o vertice repesentado por Dado novo gerara ciclo na mst
 	  * @param caminho Árvore geradora mínima
