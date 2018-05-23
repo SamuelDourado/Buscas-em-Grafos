@@ -124,7 +124,22 @@ public class Grafo {
 		return arestaMinima;
 	 }
 	 
-	 public ArrayList<Dado> Dijkstra(ArrayList<Dado> tabela){
+	 /**
+	  * Algoritmo de Dijktra
+	  * @param String arestaOrigem
+	  * @return ArrayList<Dado>
+	  */
+	 public ArrayList<Dado> Dijkstra(String arestaOrigem){
+		 this.resetCaminho();
+		 Vertice origem = this.getVerticeByNome(arestaOrigem);
+		 if(origem == null)
+			 return null;
+		 ArrayList<Dado> tabela = new ArrayList<Dado>();
+		 tabela.add(new Dado(null , origem.getNome(), 0));
+		 return this.Dijkstra(tabela);
+	 }
+	 
+	 protected ArrayList<Dado> Dijkstra(ArrayList<Dado> tabela){
 		 Dado minimo = null;
 		 for(Dado dado : tabela) {
 			if(minimo == null || minimo.peso > dado.peso)
@@ -132,24 +147,26 @@ public class Grafo {
 		 }
          tabela.remove(minimo);
 		 Vertice origem = this.getVerticeByNome(minimo.destino);
+		 origem.visitado = true;
 		 for(Aresta aresta : origem.getAresta()) {
 			 if(!aresta.destino.visitado) {
 				 Dado destino = this.findDadoByDestino(aresta.destino.getNome(), tabela);
 				 if(destino == null) {
-					 tabela.add(new Dado(origem.getNome(),aresta.destino.getNome(),aresta.peso));
+					 tabela.add(new Dado(origem.getNome(),aresta.destino.getNome(),aresta.peso + minimo.peso));
 				 }
-				 else if(destino.peso > aresta.peso) {
+				 else if(destino.peso > (aresta.peso + minimo.peso) ) {
 					 tabela.remove(destino);
-					 tabela.add(new Dado(origem.getNome(),aresta.destino.getNome(),aresta.peso));
+					 tabela.add(new Dado(origem.getNome(),aresta.destino.getNome(),aresta.peso + minimo.peso));
 				 }
 			 }
 		 }
-		 if(tabela.isEmpty()) {
-			ArrayList<Dado> novo = new ArrayList(); 
-			novo.add(minimo);
-			return novo;
-		 }
-		 ArrayList res = this.Dijkstra(tabela);
+		 
+		 ArrayList res = null;
+		 if(tabela.isEmpty())
+			res = new ArrayList<Dado>();
+		 else
+			 res = this.Dijkstra(tabela);
+		 
 		 res.add(minimo);
 		 return res;
 	 }
