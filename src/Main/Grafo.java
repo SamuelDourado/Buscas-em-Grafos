@@ -172,6 +172,53 @@ public class Grafo {
 	 }
 	 
 	 /**
+	  * Algoritmo de Dijktra
+	  * @param String arestaOrigem
+	  * @return ArrayList<Dado>
+	  */
+	 public ArrayList<Dado> Prim(String arestaOrigem){
+		 this.resetCaminho();
+		 Vertice origem = this.getVerticeByNome(arestaOrigem);
+		 if(origem == null)
+			 return null;
+		 ArrayList<Dado> tabela = new ArrayList<Dado>();
+		 tabela.add(new Dado(null , origem.getNome(), 0));
+		 return this.Prim(tabela);
+	 }
+	 
+	 protected ArrayList<Dado> Prim(ArrayList<Dado> tabela){
+		 Dado minimo = null;
+		 for(Dado dado : tabela) {
+			if(minimo == null || minimo.peso > dado.peso)
+				minimo = dado;
+		 }
+         tabela.remove(minimo);
+		 Vertice origem = this.getVerticeByNome(minimo.destino);
+		 origem.visitado = true;
+		 for(Aresta aresta : origem.getAresta()) {
+			 if(!aresta.destino.visitado) {
+				 Dado destino = this.findDadoByDestino(aresta.destino.getNome(), tabela);
+				 if(destino == null) {
+					 tabela.add(new Dado(origem.getNome(),aresta.destino.getNome(),aresta.peso));
+				 }
+				 else if(destino.peso > (aresta.peso) ) {
+					 tabela.remove(destino);
+					 tabela.add(new Dado(origem.getNome(), aresta.destino.getNome(), aresta.peso));
+				 }
+			 }
+		 }
+		 
+		 ArrayList res = null;
+		 if(tabela.isEmpty())
+			res = new ArrayList<Dado>();
+		 else
+			 res = this.Prim(tabela);
+		 
+		 res.add(minimo);
+		 return res;
+	 }
+	 
+	 /**
 	  * Procurar destino atraves da String de Destino
 	  * @param String destino
 	  * @param ArrayList<Dado> dados

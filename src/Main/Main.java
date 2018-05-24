@@ -36,6 +36,12 @@ public class Main {
 			System.out.println(dado.origem +  ',' + dado.destino + ',' + dado.peso);
 		}
 		
+		System.out.println(' ');
+		System.out.println("Prim:");
+		for(Dado dado : grafo.Prim("A")) {
+			System.out.println(dado.origem +  ',' + dado.destino + ',' + dado.peso);
+		}
+		
 	}
 
 }
