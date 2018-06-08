@@ -296,6 +296,7 @@ public class Grafo {
 		 BufferedReader buffer = null;
 		 buffer = new BufferedReader(new FileReader(file));
 		 
+		 
 		 ArrayList<Dado> dados = new ArrayList<Dado>();
 		 String line = null;
 		 while ((line = buffer.readLine()) != null) {
