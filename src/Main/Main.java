@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Grafo grafo = new Grafo();
-		String filePath = "dados de entrada/dados5.txt";
+		String filePath = "dados de entrada/dados6.txt";
 		try {
 			grafo.formarGrafo(grafo.readFile(filePath));
 		} catch (IOException e) {
@@ -17,28 +17,29 @@ public class Main {
 		
 		System.out.println(' ');
 		System.out.println("DFS:");
-		System.out.println(String.join("," ,grafo.DFS("A", "100")));
+		System.out.println(String.join("," ,grafo.DFS("1", "100")));
 		
 		grafo.resetCaminho();
 		System.out.println(' ');
 		System.out.println("BFS:");
-		System.out.println(String.join("," ,grafo.BFS("A", "100")));
-		
-//		System.out.println(' ');
-//		System.out.println("KRUSKAL:");
-//		for(Dado dado : grafo.kruskal()) {
-//			System.out.println(dado.origem +  ',' + dado.destino + ',' + dado.peso);
-//		}
+		System.out.println(String.join("," ,grafo.BFS("1", "100")));
 		
 		System.out.println(' ');
 		System.out.println("Dijkstra:");
-		for(Dado dado : grafo.Dijkstra("A")) {
+		for(Dado dado : grafo.Dijkstra("1")) {
 			System.out.println(dado.origem +  ',' + dado.destino + ',' + dado.peso);
 		}
 		
 		System.out.println(' ');
 		System.out.println("Prim:");
-		for(Dado dado : grafo.Prim("A")) {
+		for(Dado dado : grafo.Prim("1")) {
+			System.out.println(dado.origem +  ',' + dado.destino + ',' + dado.peso);
+		}
+		
+		grafo.resetCaminho();
+		System.out.println(' ');
+		System.out.println("KRUSKAL:");
+		for(Dado dado : grafo.kruskal()) {
 			System.out.println(dado.origem +  ',' + dado.destino + ',' + dado.peso);
 		}
 		

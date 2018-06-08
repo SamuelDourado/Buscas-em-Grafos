@@ -111,7 +111,7 @@ public class Grafo {
 			ArrayList<Aresta> arestaRemover = new ArrayList<Aresta>();
 			for(Aresta aresta : vertice.getAresta()) {
 				Dado novo = new Dado(vertice.getNome(), aresta.destino.getNome(), aresta.peso);
-				if(this.isCycle(mst,novo))
+				if(mst.size() > 0 && this.isCycle(mst,novo))
 					arestaRemover.add(aresta);
 				else {
 					if(arestaMinima == null || arestaMinima.peso > aresta.peso) 
@@ -239,19 +239,22 @@ public class Grafo {
 	  * @return Boolean 
 	  */
 	 private Boolean isCycle(ArrayList<Dado> caminho, Dado novo) {
-		 Boolean destinoAdd = false;
-		 Boolean origemAdd = false;
-		 int i = 0;
-		 while(i < caminho.size() && !(destinoAdd && origemAdd)) {
-			 if(novo.origem.equals(caminho.get(i).origem) || novo.origem.equals(caminho.get(i).destino))
-				 origemAdd = true;
-			 
-			 if(novo.destino.equals(caminho.get(i).origem) || novo.destino.equals(caminho.get(i).destino))
-				 destinoAdd = true;
-			 i++;
+		 ArrayList<String> v = new ArrayList<String>();
+		 for(Dado dado : caminho) {
+			 if(!v.contains(dado.origem))
+				 v.add(dado.origem);
+			 if(!v.contains(dado.destino))
+				 v.add(dado.destino);
 		 }
+		 if(!v.contains(novo.origem))
+			 v.add(novo.origem);
+		 if(!v.contains(novo.destino))
+			 v.add(novo.destino);
 		 
-		 return origemAdd && destinoAdd;
+		 if(caminho.size() == 0)
+			 return false;
+		 //System.out.println( caminho.size() + " > " + v.size());
+		 return caminho.size()+1 > v.size();
 	 }
 	 
 	 
